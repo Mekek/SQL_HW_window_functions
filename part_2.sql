@@ -19,17 +19,18 @@ CREATE TABLE shops (
 );
 
 -- Загрузка данных из CSV файлов
-\COPY goods FROM 'path_to_GOODS.csv' DELIMITER ',' CSV HEADER;
-\COPY sales FROM 'path_to_SALES.csv' DELIMITER ',' CSV HEADER;
-\COPY shops FROM 'path_to_SHOPS.csv' DELIMITER ',' CSV HEADER;
+\COPY goods FROM 'GOODS.csv' DELIMITER ',' CSV HEADER;
+\COPY sales FROM 'SALES.csv' DELIMITER ',' CSV HEADER;
+\COPY shops FROM 'SHOPS.csv' DELIMITER ',' CSV HEADER;
 
 
 
 
 
-
+-- 1) Отбор данных по продажам за 2.01.2016
+-- Выводим номер магазина, его город, адрес, сумму проданных товаров в штуках и в рублях
 SELECT 
-    s.shopnumber, 
+    sa.shopnumber,
     sh.city, 
     sh.address, 
     SUM(sa.qty) AS sum_qty, 
@@ -43,17 +44,14 @@ JOIN
 WHERE 
     sa.date = '2016-01-02'
 GROUP BY 
-    s.shopnumber, sh.city, sh.address
+    sa.shopnumber, sh.city, sh.address
 ORDER BY 
-    s.shopnumber;
+    sa.shopnumber;
 
 
 
-
-
-
-
-
+-- 2) Доля от суммарных продаж (в рублях) по товарам категории 'ЧИСТОТА' за каждую дату
+-- Рассчитываем долю продаж по товарам категории 'ЧИСТОТА' в суммарных продажах за день
 WITH total_sales AS (
     SELECT 
         date, 
@@ -89,7 +87,8 @@ ORDER BY
 
 
 
-
+-- 3) Топ-3 товара по продажам в штуках в каждом магазине в каждую дату
+-- Используем функцию RANK() для ранжирования товаров по продажам в штуках в каждый день
 WITH ranked_sales AS (
     SELECT 
         s.date, 
@@ -117,7 +116,8 @@ ORDER BY
 
 
 
-
+-- 4) Сумма продаж в рублях за предыдущую дату для каждого магазина и товарной категории
+-- Рассчитываем продажи за предыдущий день для каждого магазина и категории
 WITH prev_sales AS (
     SELECT 
         s.shopnumber, 
