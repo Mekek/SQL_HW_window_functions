@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS query CASCADE;
+
 CREATE TABLE query (
     searchid SERIAL PRIMARY KEY,
     year INT,

@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS goods CASCADE;
+DROP TABLE IF EXISTS sales CASCADE;
+DROP TABLE IF EXISTS shops CASCADE;
+
 CREATE TABLE goods (
     id_good BIGINT PRIMARY KEY,
     category VARCHAR(100),
@@ -19,9 +23,9 @@ CREATE TABLE shops (
 );
 
 -- Загрузка данных из CSV файлов
-\COPY goods FROM 'GOODS.csv' DELIMITER ',' CSV HEADER;
-\COPY sales FROM 'SALES.csv' DELIMITER ',' CSV HEADER;
-\COPY shops FROM 'SHOPS.csv' DELIMITER ',' CSV HEADER;
+COPY goods FROM 'C:\\Code\\WB\\SQL_HW_3\\GOODS.csv' DELIMITER ',' CSV HEADER;
+COPY sales FROM 'C:\\Code\\WB\\SQL_HW_3\\SALES.csv' DELIMITER ',' CSV HEADER;
+COPY shops FROM 'C:\\Code\\WB\\SQL_HW_3\\SHOPS.csv' DELIMITER ',' CSV HEADER;
 
 
 

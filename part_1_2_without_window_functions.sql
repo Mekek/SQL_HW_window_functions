@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS salary CASCADE;
+
 CREATE TABLE salary (
     id INT PRIMARY KEY,
     first_name VARCHAR(100),
@@ -6,7 +8,7 @@ CREATE TABLE salary (
     industry VARCHAR(100)
 );
 
-\COPY salary FROM 'Salary.csv' DELIMITER ',' CSV HEADER;
+COPY salary FROM 'C:\\Code\\WB\\SQL_HW_3\\Salary.csv' DELIMITER ',' CSV HEADER;
 
 SELECT 
     s.first_name, 
